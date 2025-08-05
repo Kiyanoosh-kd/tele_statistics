@@ -33,7 +33,9 @@ class ChatStatistics:
         self.stop_words = list(map(self.normalizer.normalize,stop_words))
 
     # generates word cloud and save it to output file
-    def generate_word_cloud(self, output_dir: Union[str, Path]):
+    def generate_word_cloud(self,
+                             output_dir: Union[str, Path],
+                             background_color = 'white'):
         """Generates wordcloud from telegram chat and store in the output_dir
 
         Args:
@@ -42,7 +44,7 @@ class ChatStatistics:
         logger.info("Generating wordcloud")
         self._tokenizer()
         self.text_content = (' ').join(self.tokens)
-        self.word_cloud = WordCloud(background_color='white',
+        self.word_cloud = WordCloud(background_color=background_color,
                           font_path= DATA_DIR / 'BHoma.ttf',max_font_size = 250).generate(self.text_content)
         self.word_cloud.to_file(Path(output_dir) / 'wordcloud.png')
 
